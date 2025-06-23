@@ -3,15 +3,15 @@ from sklearn.metrics.pairwise import cosine_similarity
 import torch
 import numpy as np
 
-# ✅ Load embedding model (for semantic similarity)
+# Load embedding model (for semantic similarity)
 embedding_tokenizer = AutoTokenizer.from_pretrained("sentence-transformers/all-MiniLM-L6-v2")
 embedding_model = AutoModel.from_pretrained("sentence-transformers/all-MiniLM-L6-v2")
 
-# ✅ Load QA model with PyTorch only (avoids TensorFlow issues)
+# Load QA model with PyTorch only (avoids TensorFlow issues)
 qa_model = pipeline(
     "question-answering",
     model="distilbert-base-uncased-distilled-squad",
-    framework="pt"  # 🔒 Force PyTorch-only to avoid inspect/TF issues
+    framework="pt"  # Force PyTorch-only to avoid inspect/TF issues
 )
 
 def embed(text):
