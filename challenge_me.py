@@ -30,6 +30,6 @@ def evaluate_answer(user_answer, reference_answer):
     reference_answer = reference_answer.strip().lower()
 
     if user_answer in reference_answer:
-        return True, f"✅ Correct! This is supported by: \"{reference_answer}\""
+        return True, f"Correct! This is supported by: \"{reference_answer}\""
     else:
-        return False, f"❌ Incorrect. Refer to this part of the document: \"{reference_answer}\""
+        return False, f"Incorrect. Refer to this part of the document: \"{reference_answer}\""
