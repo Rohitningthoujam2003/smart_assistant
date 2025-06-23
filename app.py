@@ -4,43 +4,43 @@ from summarizer import generate_summary
 from qa_engine import ask_question
 from challenge_me import generate_questions, evaluate_answer
 
-# 🧠 Page setup
+#  Page setup
 st.set_page_config(page_title="Smart Assistant", layout="wide")
 st.title("📄 Smart Assistant for Research Summarization")
 
-# 📤 Upload PDF or TXT file
+# Upload PDF or TXT file
 uploaded_file = st.file_uploader("Upload a PDF or TXT file", type=["pdf", "txt"])
 
 if uploaded_file:
-    # 📄 Extract text
+    #  Extract text
     if uploaded_file.name.endswith(".pdf"):
         content = read_pdf(uploaded_file)
     else:
         content = read_txt(uploaded_file)
 
-    # 🧠 Auto Summary
-    st.subheader("🧠 Auto Summary (≤ 150 words)")
+    #  Auto Summary
+    st.subheader(" Auto Summary (≤ 150 words)")
     with st.spinner("Generating summary..."):
         summary = generate_summary(content)
     st.success("Summary Ready!")
     st.write(summary)
 
-    # 📖 Expand to show full document text
-    with st.expander("📖 View Full Document Text"):
+    # Expand to show full document text
+    with st.expander("View Full Document Text"):
         st.write(content[:2000])  # preview first 2000 characters
 
-    # ❓ Ask Anything (Q&A)
-    st.subheader("❓ Ask Anything About This Document")
+    # Ask Anything (Q&A)
+    st.subheader(" Ask Anything About This Document")
     user_question = st.text_input("Enter your question:")
 
     if user_question:
         with st.spinner("Thinking..."):
             answer, score = ask_question(user_question, content)
-        st.success(f"✅ Answer (Confidence: {score:.2f})")
+        st.success(f"Answer (Confidence: {score:.2f})")
         st.write(answer)
 
-    # 🧠 Challenge Me Mode
-    st.subheader("🧠 Challenge Me: Answer Logic Questions from This Document")
+    # Challenge Me Mode
+    st.subheader(" Challenge Me: Answer Logic Questions from This Document")
 
     # Store generated questions
     if "challenge_questions" not in st.session_state:
@@ -48,7 +48,7 @@ if uploaded_file:
         st.session_state.challenge_references = []
 
     # Button to trigger question generation
-    if st.button("🪄 Generate Questions"):
+    if st.button(" Generate Questions"):
         st.session_state.challenge_questions, st.session_state.challenge_references = generate_questions(content)
 
     # Show questions
@@ -67,4 +67,4 @@ if uploaded_file:
                     st.error(justification)
 
 else:
-    st.info("📁 Please upload a PDF or TXT file to begin.")
+    st.info(" Please upload a PDF or TXT file to begin.")
